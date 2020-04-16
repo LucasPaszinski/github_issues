@@ -1,15 +1,12 @@
 defmodule Issues.GitHub do
   @user_agent [{"User-agent", "Elixir dave@pragprog.com"}]
 
-  def fetch(user, project) do
-      issues_url(user, project)
-      |> HTTPoison.get(@user_agent)
-      |> handle_response
-      #|> format
-  end
+  require Logger
 
-  def format({_, body}) do
-      for issue <- body, into: [], do: [issue["id"], issue["created_at"], issue["title"]]
+  def fetch(user, project) do
+    issues_url(user, project)
+    |> HTTPoison.get(@user_agent)
+    |> handle_response
   end
 
   @doc """
@@ -22,7 +19,7 @@ defmodule Issues.GitHub do
 
   """
   def issues_url(user, project) do
-    "https://api.github.com/repos/#{user}/#{project}/issues"
+    "#{Application.get_env(:issues, :github_url)}/repos/#{user}/#{project}/issues"
   end
 
   def handle_response({_, %{status_code: status_code, body: body}}) do
