@@ -1,6 +1,7 @@
 defmodule CmdTest do
   use ExUnit.Case
-  doctest Issues
+
+  doctest Issues.Cmd
 
   import Issues.Cmd, only: [parse_args: 1, sort_in_descending_order: 1]
 
