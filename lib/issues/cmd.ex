@@ -8,7 +8,7 @@ defmodule Issues.Cmd do
   issues in a given github project
   """
 
-  def run(argv) do
+  def main(argv) do
     argv
     |> parse_args
     |> process
@@ -46,7 +46,7 @@ defmodule Issues.Cmd do
   end
 
   def process(:help) do
-    IO.puts("usage: issues <user> <project> [count | #{@default_count}")
+    IO.puts("usage: ./issues <user> <project> [count | #{@default_count}]")
     System.halt(0)
   end
 
